@@ -1,45 +1,29 @@
-const int pingPin = 5;      
-const int buzzerPin = 4;     
-const int ledPin = 3;        
+int ledPin = 6;
+int buttonPin = 8;
+int buzzerPin = 7;
 
 void setup() {
-  pinMode(buzzerPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
-  Serial.begin(9600); 
+  pinMode(buzzerPin, OUTPUT);
+  
+  pinMode(buttonPin, INPUT_PULLUP);
 }
 
 void loop() {
-  long duration, cm;
-
-  pinMode(pingPin, OUTPUT);
-  digitalWrite(pingPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(pingPin, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(pingPin, LOW);
-  pinMode(pingPin, INPUT);
-  duration = pulseIn(pingPin, HIGH);
-
-  cm = duration / 29 / 2;
-
-  Serial.print("Distance: ");
-  Serial.print(cm);
-  Serial.println(" cm");
-
-  if (cm > 0 && cm < 150) {
+  int buttonState = digitalRead(buttonPin);
+  
+  if (buttonState == LOW) { 
+    
     digitalWrite(ledPin, HIGH);
-    delay(100);
-    digitalWrite(ledPin, LOW);
-    delay(100);
+    
     digitalWrite(buzzerPin, HIGH);
-    delay(100);
-    digitalWrite(buzzerPin, LOW);
-    delay(100);
-
-  } else {
-    digitalWrite(buzzerPin, LOW);
+    
+  } else 
+  
+  {
+    
     digitalWrite(ledPin, LOW);
+    
+    digitalWrite(buzzerPin, LOW);
   }
-
-  delay(100); 
 }
